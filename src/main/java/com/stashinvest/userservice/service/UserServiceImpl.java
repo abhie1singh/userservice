@@ -33,7 +33,7 @@ public class UserServiceImpl implements IUserService {
 	private final Logger log = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	private UserRepository userRepository;
+	UserRepository userRepository;
 
 	/* (non-Javadoc)
 	 * @see com.stashinvest.userservice.service.IUserService#findAllUsers()

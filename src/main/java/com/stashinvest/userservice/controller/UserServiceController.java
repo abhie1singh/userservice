@@ -43,7 +43,8 @@ public class UserServiceController {
 	IUserService userService;
 
 	/**
-	 * This method fetches users for given query parameter. Fetches all users if query parameter is null.
+	 * This method fetches users for given query parameter. Fetches all users if
+	 * query parameter is null.
 	 * 
 	 * @param query
 	 * @return
@@ -53,8 +54,8 @@ public class UserServiceController {
 	@ResponseStatus(HttpStatus.OK)
 	public UserResponse findAllUsers(@RequestParam(required = false) final String query) throws Exception {
 		log.info("UserServiceController : findAllUsers -- START");
-		
-		UserResponse response = new UserResponse();
+
+		UserResponse userResponse = new UserResponse();
 		try {
 			List<User> users = new ArrayList<User>();
 			// Need to check back on malformed thing
@@ -70,13 +71,13 @@ public class UserServiceController {
 				log.info("UserServiceController : findAllUsers -- query mode: Query Param : " + query);
 				users = userService.findAllUsersByParam(query);
 			}
-			response.setUsers(users);
+			userResponse.setUsers(users);
 		} catch (UserServiceException e) {
 			log.error("UserServiceController: UserServiceController -- ERROR", e);
 			throw new Exception(e.getMessage(), e.getCause());
 		}
 		log.info("UserServiceController : findAllUsers -- END");
-		return response;
+		return userResponse;
 	}
 
 	/**
@@ -93,33 +94,22 @@ public class UserServiceController {
 	@RequestMapping(value = "/v1/users", method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(
-			@NotEmpty(message="Email is required")
-			@Email 
-			@Size(max = 200, message = "Email is too long")
-			@RequestParam(required = true) final String email,
-			
-			@NotEmpty(message="Phone is required")
-			@Pattern(regexp="(^$|[0-9]{10})", message = "Invalid phone number")
-			@Size(max = 20, min = 1, message = "Phone Number is too long")
-			@RequestParam(required = true) final String phoneNumber,
-			
-			@NotEmpty(message="Full name is required")
-			@Size(max = 200, message = "Full Name is too long")
-			@RequestParam(required = true) final String fullName, 
-			
-			@NotEmpty(message="Password is required")
-			@Size(max = 10, message = "Password is too long")
-			@RequestParam(required = true) final String password,
-			
-			@NotEmpty(message="Metadata is required")
-			@Size(max = 2000, message = "Metadata is too long")
-			@RequestParam(required = true) final String metadata) throws Exception {
-		
+			@NotEmpty(message = "Email is required") @Email @Size(max = 200, message = "Email is too long") @RequestParam(required = true) final String email,
+
+			@NotEmpty(message = "Phone is required") @Pattern(regexp = "(^$|[0-9]{10})", message = "Invalid phone number") @Size(max = 20, min = 1, message = "Phone Number is too long") @RequestParam(required = true) final String phoneNumber,
+
+			@NotEmpty(message = "Full name is required") @Size(max = 200, message = "Full Name is too long") @RequestParam(required = true) final String fullName,
+
+			@NotEmpty(message = "Password is required") @Size(max = 10, message = "Password is too long") @RequestParam(required = true) final String password,
+
+			@NotEmpty(message = "Metadata is required") @Size(max = 2000, message = "Metadata is too long") @RequestParam(required = true) final String metadata)
+			throws Exception {
+
 		log.info("UserServiceController : createUser -- START");
 		User returnUserValue = null;
 		try {
 			returnUserValue = userService.createUser(email, phoneNumber, fullName, password, metadata);
-		} catch (Exception e) {
+		} catch (UserServiceException e) {
 			log.error("UserServiceController: createUser -- ERROR", e);
 			throw new Exception(e.getMessage(), e.getCause());
 		}

@@ -71,7 +71,7 @@ public class ScheduledTasks {
 	 * @return
 	 * @throws UserServiceException
 	 */
-	private AccountServiceVO getAccountKeyFromService(final AccountServiceVO input) throws UserServiceException{
+	public AccountServiceVO getAccountKeyFromService(final AccountServiceVO input) throws UserServiceException{
 		log.info("ScheduledTasks : getAccountKeyFromService -- START");
 		AccountServiceVO response;
 		try {
@@ -95,7 +95,7 @@ public class ScheduledTasks {
 	 * @param accountKey
 	 * @throws UserServiceException
 	 */
-	private void updateAccountKey(final String email, final String accountKey) throws UserServiceException{
+	public void updateAccountKey(final String email, final String accountKey) throws UserServiceException{
 		log.info("ScheduledTasks : updateAccountKey -- START");
 		try {
 			userService.updateAccountKey(email, accountKey);
