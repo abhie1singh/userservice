@@ -38,6 +38,16 @@ public class GlobalControllerExceptionHandler {
 	public void handleMarlformedQueryParam(HttpServletResponse response) throws IOException {
 		response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
 	}
+	
+	/**
+	 * Handler for org.springframework.transaction.TransactionSystemException
+	 * @param response
+	 * @throws IOException
+	 */
+	@ExceptionHandler({ org.springframework.transaction.TransactionSystemException.class })
+	public void handleContrainstViolationException(HttpServletResponse response) throws IOException {
+		response.sendError(HttpStatus.UNPROCESSABLE_ENTITY.value());
+	}
 
 	/**
 	 * Handler for Exception

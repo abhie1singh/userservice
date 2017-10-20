@@ -1,3 +1,4 @@
+
 /**
  * 
  */
@@ -34,6 +35,7 @@ import com.stashinvest.userservice.service.IUserService;
  * @author abhimanyu
  *
  */
+@RequestMapping(value = "/v1/users")
 @Validated
 @RestController
 public class UserServiceController {
@@ -50,7 +52,7 @@ public class UserServiceController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/v1/users", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public UserResponse findAllUsers(@RequestParam(required = false) final String query) throws Exception {
 		log.info("UserServiceController : findAllUsers -- START");
@@ -58,12 +60,6 @@ public class UserServiceController {
 		UserResponse userResponse = new UserResponse();
 		try {
 			List<User> users = new ArrayList<User>();
-			// Need to check back on malformed thing
-
-			// if (StringUtils.containsWhitespace(query)) {
-			// throw new IllegalArgumentException();
-			// }
-
 			if (StringUtils.isEmpty(query)) {
 				log.info("UserServiceController : findAllUsers -- getting all users");
 				users = userService.findAllUsers();
@@ -91,7 +87,7 @@ public class UserServiceController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/v1/users", method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public User createUser(
 			@NotEmpty(message = "Email is required") @Email @Size(max = 200, message = "Email is too long") @RequestParam(required = true) final String email,
