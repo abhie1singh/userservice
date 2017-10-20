@@ -4,6 +4,8 @@
 package com.stashinvest.userservice.exception;
 
 /**
+ * Custom exception class for User Service application.
+ * 
  * @author abhimanyu
  *
  */

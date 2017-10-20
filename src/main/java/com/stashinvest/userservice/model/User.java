@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * This class is JPA enity object to hold user related data.
  * 
@@ -31,6 +33,7 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id")
+	@JsonIgnore
 	private Long id;
 	
 	@Column(name = "email", length = 200, nullable = false)
@@ -42,6 +45,7 @@ public class User implements Serializable {
 	@Column(name = "full_name", length = 200)
 	private String fullName;
 	
+	@JsonIgnore
 	@Column(name = "password", length = 100, nullable = false)
 	private String password;
 	
