@@ -10,10 +10,11 @@ Below software are installed on machine
 
 
 Extract userservice.zip in some directory.
+If using git, clone using https://github.com/abhie1singh/userservice.git
 
 Open terminal or command prompt and cd to extracted folder. 
 
-For e.g. /<Path_to_extracted_folder> /userservice
+For e.g. /<Path_to_project_folder> /userservice
 
 Type command mvn clean install and press enter.
 
