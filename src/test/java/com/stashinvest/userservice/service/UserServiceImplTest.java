@@ -5,9 +5,11 @@ package com.stashinvest.userservice.service;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.exception.SQLGrammarException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +19,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import com.stashinvest.userservice.exception.UserServiceException;
 import com.stashinvest.userservice.model.User;
 import com.stashinvest.userservice.repository.UserRepository;
+import com.stashinvest.userservice.util.ServiceUtil;
 
 /**
  * @author abhimanyu
@@ -67,7 +71,7 @@ public class UserServiceImplTest {
 
 	@Test(expected = Exception.class)
 	public void testFindAllUsers_exception() throws Exception {
-		Mockito.when(userRepository.findAll()).thenThrow(Mockito.mock(Exception.class));
+		Mockito.when(userRepository.findAll()).thenThrow(Mockito.mock(SQLGrammarException.class));
 		userServiceImpl.findAllUsers();
 		Mockito.verify(userRepository, Mockito.atLeastOnce()).findAll();
 	}
@@ -83,7 +87,7 @@ public class UserServiceImplTest {
 		Mockito.verify(userRepository, Mockito.atLeastOnce()).findByMetadata("test@test.com");
 		assertEquals("test@test.com", actual.get(0).getEmail());
 	}
-	
+
 	@Test(expected = Exception.class)
 	public void testFindAllUsersByParam_exception() throws Exception {
 		Mockito.when(userRepository.findByMetadata("test@test.com")).thenThrow(Mockito.mock(Exception.class));
